@@ -26,15 +26,23 @@ public class State {
                 "   }");
 
         // Onentry
-        System.out.println("    public void onentry(){\n" +
+        System.out.println("    public String onentry(){\n" +
+                "       System.out.println(\"*Onentry*\");\n" +
                 "       System.out.println(\"Entering state \" + this.name);\n" +
-                "       for(Event e : onentry){e.execute();}\n" +
+                "       String ret = \"\";\n" +
+                "       for(Event e : onentry){ret = e.execute();}\n" +
+                "       System.out.println(\"*End of Onentry*\");\n" +
+                "       return ret;\n" +
                 "   }");
 
         //Onexit
-        System.out.println("    public void onexit(){\n" +
+        System.out.println("    public String onexit(){\n" +
+                "       System.out.println(\"*Onexit*\");\n" +
+                "       String ret = \"\";\n" +
                 "       System.out.println(\"Exiting state \" + this.name);\n" +
-                "       for(Event e : onexit){e.execute();}\n" +
+                "       for(Event e : onexit){ret = e.execute();}\n" +
+                "       System.out.println(\"*End of Onexit*\");\n" +
+                "       return ret;\n" +
                 "   }");
 
         // Test for transitions trigger

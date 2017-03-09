@@ -107,15 +107,22 @@ public class JDOMXMLReader {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("    while(true){\n" +
+        System.out.println("  String event = \"\";\n  " +
+                "   while(true){\n" +
+                "        while(!event.equals(\"\")) {\n" +
+                "           String NState = current.trigger(event);\n" +
+                "           event = \"\";\n" +
+                "           current = states.get(NState);\n" +
+                "           event = current.onentry();\n" +
+                "        }" +
                 "        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));\n" +
                 "        try{\n" +
                 "            String s = br.readLine();\n" +
                 "            String nextState = current.trigger(s);\n" +
                 "            if (!nextState.equals(\"\")){\n" +
-                "               current.onexit();\n" +
+                "               event = current.onexit();\n" +
                 "               current = states.get(nextState);\n" +
-                "               current.onentry();\n" +
+                "               event = current.onentry();\n" +
                 "            }\n" +
                 "        }catch(Exception e){\n" +
                 "        }}");

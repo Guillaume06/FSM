@@ -2,8 +2,11 @@
 <scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" binding="early" xmlns:qt="http://www.qt.io/2015/02/scxml-ext" name="StateChart" qt:editorversion="4.2.1" initial="Start2">
     <qt:editorinfo initialGeometry="167.37;-22.50;-20;-20;40;40"/>
     <state id="Start2">
-        <qt:editorinfo geometry="548.52;-70.13;-60;-50;120;100" scenegeometry="548.52;-70.13;488.52;-120.13;120;100"/>
+        <qt:editorinfo geometry="548.52;-70.13;-83;-50;120;100" scenegeometry="548.52;-70.13;465.52;-120.13;120;100"/>
         <transition type="external" event="Next" target="State_4"/>
+        <onexit>
+            <send event="End"/>
+        </onexit>
     </state>
     <state id="End">
         <qt:editorinfo geometry="829.79;-0.91;-60;-50;120;100" scenegeometry="829.79;-0.91;769.79;-50.91;120;100"/>
