@@ -12,48 +12,50 @@ public class State {
 
         // Class declaration + vars
         System.out.print("class State {\n" +
-                "   private String name;\n" +
-                "   private ArrayList<Transition> transitions;\n" +
-                "   private ArrayList<Event> onentry;\n" +
-                "   private ArrayList<Event> onexit;\n" );
+                "\tprivate String name;\n" +
+                "\tprivate ArrayList<Transition> transitions;\n" +
+                "\tprivate ArrayList<Event> onentry;\n" +
+                "\tprivate ArrayList<Event> onexit;\n" );
 
         // Constructor
-        System.out.println("    public State(String name, ArrayList<Transition> transitions, ArrayList<Event> onentry, ArrayList<Event> onexit) {\n" +
-                "       this.name = name;\n" +
-                "       this.transitions = transitions;\n" +
-                "       this.onentry = onentry;\n" +
-                "       this.onexit = onexit;\n" +
-                "   }");
+        System.out.println("\tpublic State(String name, ArrayList<Transition> transitions, ArrayList<Event> onentry, ArrayList<Event> onexit) {\n" +
+                "\t\tthis.name = name;\n" +
+                "\t\tthis.transitions = transitions;\n" +
+                "\t\tthis.onentry = onentry;\n" +
+                "\t\tthis.onexit = onexit;\n" +
+                "\t\t}");
 
         // Onentry
-        System.out.println("    public String onentry(){\n" +
-                "       System.out.println(\"*Onentry*\");\n" +
-                "       System.out.println(\"Entering state \" + this.name);\n" +
-                "       String ret = \"\";\n" +
-                "       for(Event e : onentry){ret = e.execute();}\n" +
-                "       System.out.println(\"*End of Onentry*\");\n" +
-                "       return ret;\n" +
-                "   }");
+        System.out.println("\tpublic ArrayList<String> onentry(){\n" +
+                "\t\tSystem.out.println(\"*Onentry*\");\n" +
+                "\t\tArrayList<String> ret = new ArrayList<String>();\n" +
+                "\t\tSystem.out.println(\"Entering state \" + this.name);\n" +
+                "\t\tEvent event = null;\n" +
+                "\t\tfor(Event e : onentry){event = e.execute();if(event != null){ret.add(event.send);} event = null;}\n" +
+                "\t\tSystem.out.println(\"*End of Onentry*\");\n" +
+                "\t\treturn ret;\n" +
+                "\t}");
 
         //Onexit
-        System.out.println("    public String onexit(){\n" +
-                "       System.out.println(\"*Onexit*\");\n" +
-                "       String ret = \"\";\n" +
-                "       System.out.println(\"Exiting state \" + this.name);\n" +
-                "       for(Event e : onexit){ret = e.execute();}\n" +
-                "       System.out.println(\"*End of Onexit*\");\n" +
-                "       return ret;\n" +
-                "   }");
+        System.out.println("\tpublic ArrayList<String> onexit(){\n" +
+                "\t\tArrayList<String> ret = new ArrayList<String>();\n" +
+                "\t\tSystem.out.println(\"*Onexit*\");\n" +
+                "\t\t Event event = null;" +
+                "\t\tSystem.out.println(\"Exiting state \" + this.name);\n" +
+                "\t\tfor(Event e : onexit){event = e.execute();if(event != null){ret.add(event.send);} event = null;}\n" +
+                "\t\tSystem.out.println(\"*End of Onexit*\");\n" +
+                "\t\treturn ret;\n" +
+                "\t}");
 
         // Test for transitions trigger
-        System.out.println("    public String trigger(String input){\n" +
-                "       String next = null;\n" +
-                "       for(Transition t : transitions) {\n" +
-                "           next = t.submit(input);\n" +
-                "           if (next != null) break;\n" +
-                "       }\n" +
-                "       return next;\n" +
-                "   }");
+        System.out.println("\tpublic String trigger(String input){\n" +
+                "\t\tString next = null;\n" +
+                "\t\tfor(Transition t : transitions) {\n" +
+                "\t\t\tnext = t.submit(input);\n" +
+                "\t\t\tif (next != null) break;\n" +
+                "\t\t}\n" +
+                "\t\treturn next;\n" +
+                "\t}\n}");
 
 
     }

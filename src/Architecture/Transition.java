@@ -8,20 +8,20 @@ public class Transition {
 
     public void print(){
         System.out.println("class Transition{\n" +
-                "   String type;\n" +
-                "   String event;\n" +
-                "   String target;\n" +
-                "   public Transition(String type, String event, String target){\n" +
-                "       this.type = type;\n" +
-                "       this.event = event;\n" +
-                "       this.target = target;\n" +
-                "   }\n" +
-                "   public String submit(String trig){\n" +
-                "       if(trig.equals(event)){\n" +
-                "           return target;\n" +
-                "       }\n" +
-                "       return null;\n" +
-                "   }\n" +
+                "\tString type;\n" +
+                "\tString target;\n" +
+                "\tString event;\n" +
+                "\tpublic Transition(String type, String event, String target){\n" +
+                "\t\tthis.type = type;\n" +
+                "\t\tthis.event = event;\n" +
+                "\t\tthis.target = target;\n" +
+                "\t}\n" +
+                "\tpublic String submit(String trig){\n" +
+                "\t\t\tif(trig.equals(event)){\n" +
+                "\t\t\t\treturn target;\n" +
+                "\t\t}\n" +
+                "\t\treturn null;\n" +
+                "\t}\n" +
                 "}");
     }
 
