@@ -62,13 +62,17 @@ public class FSM {
                     for (Element elem : empListElements.get(i).getChildren()) {
                         switch (elem.getName()) {
                             case "onentry":
-                                System.out.println("\t\tonentry.add(new Event(" + "\"" + elem.getChildren().get(0).getAttribute("event").getValue() + "\"));");
+                                for(int j = 0; j < elem.getChildren().size(); j++ ) {
+                                    System.out.println("\t\tonentry.add(new Event(" + "\"" + elem.getChildren().get(j).getAttribute("event").getValue() + "\"));");
+                                }
                                 break;
                             case "transition":
                                 System.out.println("\t\ttransitions.add(new Transition(\"" + elem.getAttribute("type").getValue() + "\", \"" + elem.getAttribute("event").getValue() + "\", \"" + elem.getAttribute("target").getValue() + "\"));");
                                 break;
                             case "onexit":
-                                System.out.println("\t\tonexit.add(new Event(" + "\"" + elem.getChildren().get(0).getAttribute("event").getValue() + "\"));");
+                                for(int h = 0; h < elem.getChildren().size(); h++ ) {
+                                    System.out.println("\t\tonexit.add(new Event(" + "\"" + elem.getChildren().get(h).getAttribute("event").getValue() + "\"));");
+                                }
                                 break;
                             default:
                                 break;
