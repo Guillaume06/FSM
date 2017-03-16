@@ -23,16 +23,65 @@ public class FSM {
         System.out.println("import java.util.HashMap;");
         System.out.println("import java.io.BufferedReader;");
         System.out.println("import java.io.InputStreamReader;");
+        System.out.println("import java.lang.reflect.Method;");
+        System.out.println("import java.lang.reflect.InvocationTargetException;");
 
         System.out.println("public class FSM {\n" +
-                "\tpublic static HashMap<String, State> states = new HashMap<String, State>();\n");
+                "\tpublic static HashMap<String, State> states = new HashMap<String, State>();" +
+                "\tpublic static HashMap<String, Runnable> registered = new HashMap<String, Runnable>();\n");
+
         final String fileName = "data/StateChart.scxml";
         org.jdom2.Document jdomDoc;
 
+        System.out.println("\tpublic State current;");
+
 
         try {
-            // Main print
-            System.out.println("\tpublic static void main(String[] args) {");
+
+            // Methods
+            System.out.println("\tpublic void submitEvent(String eve){\n System.out.println(\"\t\t ** Submitting event : \" + eve + \" **\");");
+            System.out.println("\t\tArrayList<String> event = new ArrayList<String>();\n" +
+                    "\t\tArrayList<String> eventRet = new ArrayList<String>();\n" +
+                    "\t\t\ttry{\n" +
+                    "\t\t\t\tString nextState = current.trigger(eve);\n" +
+                    "\t\t\t\twhile (!nextState.equals(\"\")){\n" +
+                    "\t\t\t\t\tevent.addAll(current.onexit());\n" +
+                    "\t\t\t\t\tcurrent = states.get(nextState);\n" +
+                    "\t\t\t\t\tevent.addAll(current.onentry());\n" +
+                    "\t\t\t\t\tnextState = \"\";\n" +
+                    "\t\t\t\t\twhile(event.size() != 0){\n" +
+                    "\t\t\t\t\t\tString tmp = current.trigger(event.get(0));\n" +
+                    "\t\t\t\t\t\tif(tmp != \"\" && tmp != null){\n" +
+                    "\t\t\t\t\t\t\tnextState = tmp;\n" +
+                    "\t\t\t\t\t\t\tevent.addAll(current.onexit());\n" +
+                    "\t\t\t\t\t\t\tcurrent = states.get(nextState);\n" +
+                    "\t\t\t\t\t\t\tevent.addAll(current.onentry());\n" +
+                    "\t\t\t\t\t\t\tnextState = \"\";\n" +
+                    "\t\t\t\t\t\t}\n" +
+                    "\t\t\t\t\t\tevent.remove(0);\n" +
+                    "\t\t\t\t\t}\n" +
+                    "\t\t\t\t}\n" +
+                    "\t\t\t}catch(Exception e){\n" +
+                    "\t\t\t\tSystem.out.println(e);\n" +
+                    "\t\t\t}\n" +
+                    "\t\t}");
+
+            System.out.print("\tpublic void register(String eve, Object c, Method method){\n" +
+                    "\t\t\tregistered.put(eve,  ()-> {\n" +
+                    "\t\t\t\ttry {\n" +
+                    "\t\t\t\t\tmethod.invoke(c);\n" +
+                    "\t\t\t\t} catch (IllegalAccessException e) {\n" +
+                    "\t\t\t\t\te.printStackTrace();\n" +
+                    "\t\t\t\t} catch (InvocationTargetException e) {\n" +
+                    "\t\t\t\t\te.printStackTrace();\n" +
+                    "\t\t\t\t}\n" +
+                    "\t\t\t});" +
+                    "\t}\n");
+
+            // Constructor()
+            System.out.println("\tpublic FSM(){}");
+            // Init print
+            System.out.println("\tpublic void init() {");
 
             //we can create JDOM Document from DOM, SAX and STAX Parser Builder classes
             jdomDoc = useDOMParser(fileName);
@@ -79,16 +128,17 @@ public class FSM {
                         }
                     }
                     System.out.println("\t\tstates.put(name, new State(name, transitions, onentry, onexit));");
-                    System.out.println("\t\tname = \"\"; transitions = new ArrayList<Transition>(); onentry = new ArrayList<Event>(); onexit = new ArrayList<Event>();\n");
+                    System.out.println("\t\tname = \"\"; transitions = new ArrayList<Transition>();\n\t\tonentry = new ArrayList<Event>();\n\t\tonexit = new ArrayList<Event>();\n");
                 }
             }
-            System.out.println("\t\tState current = states.get(\""+ initState +"\");");
+            System.out.println("\t\tcurrent = states.get(\""+ initState +"\");");
             System.out.println("\t\tcurrent.onentry();");
 
 
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        /*
         System.out.println("\t\tArrayList<String> event = new ArrayList<String>();\n" +
                 "\t\tArrayList<String> eventRet = new ArrayList<String>();\n" +
                 "\t\twhile(true){\n" +
@@ -102,14 +152,24 @@ public class FSM {
                 "\t\t\t\t\tevent.addAll(current.onentry());\n" +
                 "\t\t\t\t\tnextState = \"\";\n" +
                 "\t\t\t\t\twhile(event.size() != 0){\n" +
-                "\t\t\t\t\t\tnextState = current.trigger(event.get(0));\n" +
+                "\t\t\t\t\t\tString tmp = current.trigger(event.get(0));\n" +
+                "\t\t\t\t\t\tif(tmp != \"\" && tmp != null){\n" +
+                "\t\t\t\t\t\t\tnextState = tmp;\n" +
+                "\t\t\t\t\t\t\tevent.addAll(current.onexit());\n" +
+                "\t\t\t\t\t\t\tcurrent = states.get(nextState);\n" +
+                "\t\t\t\t\t\t\tevent.addAll(current.onentry());\n" +
+                "\t\t\t\t\t\t\tnextState = \"\";\n" +
+                "\t\t\t\t\t\t}\n" +
                 "\t\t\t\t\t\tevent.remove(0);\n" +
                 "\t\t\t\t\t}\n" +
                 "\t\t\t\t}\n" +
                 "\t\t\t}catch(Exception e){\n" +
+                "\t\t\t\tSystem.out.println(e);\n" +
                 "\t\t\t}\n" +
                 "\t\t}");
         System.out.println("\t}\n}");
+        */
+        System.out.println("}");
 
         // Object print
         Event e = new Event();
@@ -118,6 +178,7 @@ public class FSM {
         t.print();
         State s = new State();
         s.print();
+        System.out.println("}");
         }
 
 
