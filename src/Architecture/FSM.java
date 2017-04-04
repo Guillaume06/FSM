@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class FSM {
     public FSM(){}
-    public void print(){
+    public void print(String fileName){
         // Includes
         System.out.println("import java.util.ArrayList;");
         System.out.println("import java.util.HashMap;");
@@ -30,7 +30,6 @@ public class FSM {
                 "\tpublic static HashMap<String, State> states = new HashMap<String, State>();" +
                 "\tpublic static HashMap<String, Runnable> registered = new HashMap<String, Runnable>();\n");
 
-        final String fileName = "data/StateChart.scxml";
         org.jdom2.Document jdomDoc;
 
         System.out.println("\tpublic State current;");
