@@ -17,9 +17,9 @@ public class Transition {
                 "\t\tthis.target = target;\n" +
                 "\t}\n" +
                 "\tpublic String submit(String trig){\n" +
-                "\t\t if (event == \"\") return target\n;" +
-                "\t\t\tif(trig.equals(event)){\n" +
-                "\t\t\t\treturn target;\n" +
+                "\t\tif (event == \"\") return target;\n" +
+                "\t\tif(trig.equals(event)){\n" +
+                "\t\t\treturn target;\n" +
                 "\t\t}\n" +
                 "\t\treturn null;\n" +
                 "\t}\n" +

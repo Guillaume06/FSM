@@ -107,9 +107,9 @@ class Transition{
 		this.target = target;
 	}
 	public String submit(String trig){
-		 if (event == "") return target
-;			if(trig.equals(event)){
-				return target;
+		if (event == "") return target;
+		if(trig.equals(event)){
+			return target;
 		}
 		return null;
 	}
