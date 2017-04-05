@@ -10,7 +10,11 @@ public class Event {
         System.out.println("class Event{\n" +
                 "\tString send = \"\";\n" +
                 "\tpublic Event(String send){this.send = send;}\n" +
-                "\tpublic Event execute(){ System.out.println(\"\\tSending event \"  + send); if (registered.get(send) != null) registered.get(send).run(); return this;}\n" +
+                "\tpublic Event execute(){ \n" +
+                "\t\tSystem.out.println(\"\\tSending event \"  + send);\n" +
+                "\t\tif (registered.get(send) != null) registered.get(send).run();\n" +
+                "\t\treturn this;\n" +
+                "\t}\n" +
                 "}");
 
     }

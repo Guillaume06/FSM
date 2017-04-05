@@ -5,11 +5,12 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;
 public class FSM {
-	public static HashMap<String, State> states = new HashMap<String, State>();	public static HashMap<String, Runnable> registered = new HashMap<String, Runnable>();
+	public static HashMap<String, State> states = new HashMap<String, State>();
+	public static HashMap<String, Runnable> registered = new HashMap<String, Runnable>();
 
 	public State current;
 	public void submitEvent(String eve){
- System.out.println("		 ** Submitting event : " + eve + " **");
+ 		System.out.println("		 ** Submitting event : " + eve + " **");
 		ArrayList<String> event = new ArrayList<String>();
 		ArrayList<String> eventRet = new ArrayList<String>();
 			try{
@@ -53,49 +54,48 @@ public class FSM {
 		ArrayList<Event> onexit = new ArrayList<Event>();
 
 
-		name = "Start";
-		transitions.add(new Transition("external", "Next", "Middle1"));
+		name = "s0";
+		transitions.add(new Transition("", "", "pass"));
 		states.put(name, new State(name, transitions, onentry, onexit));
 		name = ""; transitions = new ArrayList<Transition>();
 		onentry = new ArrayList<Event>();
 		onexit = new ArrayList<Event>();
 
 
-		name = "End";
+		name = "s1";
+		transitions.add(new Transition("", "", "fail"));
 		states.put(name, new State(name, transitions, onentry, onexit));
 		name = ""; transitions = new ArrayList<Transition>();
 		onentry = new ArrayList<Event>();
 		onexit = new ArrayList<Event>();
 
 
-		name = "Middle1";
-		transitions.add(new Transition("external", "Back", "Start"));
-		transitions.add(new Transition("external", "Next", "Middle2"));
-		onexit.add(new Event("Test"));
-		onexit.add(new Event("End"));
-		onentry.add(new Event("Test"));
+		name = "pass";
+		onentry.add(new Event("pass"));
 		states.put(name, new State(name, transitions, onentry, onexit));
 		name = ""; transitions = new ArrayList<Transition>();
 		onentry = new ArrayList<Event>();
 		onexit = new ArrayList<Event>();
 
 
-		name = "Middle2";
-		transitions.add(new Transition("external", "End", "End"));
-		onentry.add(new Event("Test"));
-		transitions.add(new Transition("external", "Back", "Start"));
+		name = "fail";
+		onentry.add(new Event("fail"));
 		states.put(name, new State(name, transitions, onentry, onexit));
 		name = ""; transitions = new ArrayList<Transition>();
 		onentry = new ArrayList<Event>();
 		onexit = new ArrayList<Event>();
 
-		current = states.get("Start");
+		current = states.get("s0");
 		current.onentry();
 }
 class Event{
 	String send = "";
 	public Event(String send){this.send = send;}
-	public Event execute(){ System.out.println("\tSending event "  + send); if (registered.get(send) != null) registered.get(send).run(); return this;}
+	public Event execute(){ 
+		System.out.println("\tSending event "  + send);
+		if (registered.get(send) != null) registered.get(send).run();
+		return this;
+	}
 }
 class Transition{
 	String type;
@@ -107,7 +107,8 @@ class Transition{
 		this.target = target;
 	}
 	public String submit(String trig){
-			if(trig.equals(event)){
+		 if (event == "") return target
+;			if(trig.equals(event)){
 				return target;
 		}
 		return null;

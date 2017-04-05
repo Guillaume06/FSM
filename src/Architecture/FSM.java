@@ -27,7 +27,7 @@ public class FSM {
         System.out.println("import java.lang.reflect.InvocationTargetException;");
 
         System.out.println("public class FSM {\n" +
-                "\tpublic static HashMap<String, State> states = new HashMap<String, State>();" +
+                "\tpublic static HashMap<String, State> states = new HashMap<String, State>();\n" +
                 "\tpublic static HashMap<String, Runnable> registered = new HashMap<String, Runnable>();\n");
 
         org.jdom2.Document jdomDoc;
@@ -38,7 +38,7 @@ public class FSM {
         try {
 
             // Methods
-            System.out.println("\tpublic void submitEvent(String eve){\n System.out.println(\"\t\t ** Submitting event : \" + eve + \" **\");");
+            System.out.println("\tpublic void submitEvent(String eve){\n \t\tSystem.out.println(\"\t\t ** Submitting event : \" + eve + \" **\");");
             System.out.println("\t\tArrayList<String> event = new ArrayList<String>();\n" +
                     "\t\tArrayList<String> eventRet = new ArrayList<String>();\n" +
                     "\t\t\ttry{\n" +
@@ -102,7 +102,7 @@ public class FSM {
                 if (empListElements.get(i).getAttribute("id") != null) {
                     if (i == 0) {
                         if (initState == "") {
-                            initState = empListElements.get(i).getName();
+                            initState = empListElements.get(i).getAttribute("id").getValue();
                         }
                     }
                     System.out.println("\n\t\tname = " + "\"" + empListElements.get(i).getAttribute("id").getValue() + "\";");
@@ -115,7 +115,11 @@ public class FSM {
                                 }
                                 break;
                             case "transition":
-                                System.out.println("\t\ttransitions.add(new Transition(\"" + elem.getAttribute("type").getValue() + "\", \"" + elem.getAttribute("event").getValue() + "\", \"" + elem.getAttribute("target").getValue() + "\"));");
+                                String event = "";
+                                String type = "";
+                                if (elem.getAttribute("event") != null)event = elem.getAttribute("event").getValue();
+                                if (elem.getAttribute("type") != null)type = elem.getAttribute("type").getValue();
+                                System.out.println("\t\ttransitions.add(new Transition(\"" + type + "\", \"" + event + "\", \"" + elem.getAttribute("target").getValue() + "\"));");
                                 break;
                             case "onexit":
                                 for(int h = 0; h < elem.getChildren().size(); h++ ) {
