@@ -11,6 +11,5 @@ public class Main {
     public static void main(String[] args){
         FSM m = new FSM();
         m.init();
-        m.submitEvent("Next");
     }
 }

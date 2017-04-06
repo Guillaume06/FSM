@@ -38,16 +38,17 @@ public class FSM {
         try {
 
             // Methods
-            System.out.println("\tpublic void submitEvent(String eve){\n \t\tSystem.out.println(\"\t\t ** Submitting event : \" + eve + \" **\");");
+            System.out.println("\tpublic void submitEvent(String eve){\n" +
+                    "\t\tif(eve != \"\" && eve != null)System.out.println(\"\t\t ** Submitting event : \" + eve + \" **\");");
             System.out.println("\t\tArrayList<String> event = new ArrayList<String>();\n" +
                     "\t\tArrayList<String> eventRet = new ArrayList<String>();\n" +
                     "\t\t\ttry{\n" +
                     "\t\t\t\tString nextState = current.trigger(eve);\n" +
-                    "\t\t\t\twhile (!nextState.equals(\"\")){\n" +
+                    "\t\t\t\twhile (!(nextState == null) && !nextState.equals(\"\")){\n" +
                     "\t\t\t\t\tevent.addAll(current.onexit());\n" +
                     "\t\t\t\t\tcurrent = states.get(nextState);\n" +
-                    "\t\t\t\t\tevent.addAll(current.onentry());\n" +
                     "\t\t\t\t\tnextState = \"\";\n" +
+                    "\t\t\t\t\tevent.addAll(current.onentry());\n" +
                     "\t\t\t\t\twhile(event.size() != 0){\n" +
                     "\t\t\t\t\t\tString tmp = current.trigger(event.get(0));\n" +
                     "\t\t\t\t\t\tif(tmp != \"\" && tmp != null){\n" +
@@ -61,7 +62,7 @@ public class FSM {
                     "\t\t\t\t\t}\n" +
                     "\t\t\t\t}\n" +
                     "\t\t\t}catch(Exception e){\n" +
-                    "\t\t\t\tSystem.out.println(e);\n" +
+                    "\t\t\t\tSystem.out.println(\"Exception : \" + e);\n" +
                     "\t\t\t}\n" +
                     "\t\t}");
 
@@ -136,6 +137,7 @@ public class FSM {
             }
             System.out.println("\t\tcurrent = states.get(\""+ initState +"\");");
             System.out.println("\t\tcurrent.onentry();");
+            System.out.println("\t\tsubmitEvent(\"\");");
 
 
         } catch (Exception ex) {

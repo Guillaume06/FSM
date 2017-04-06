@@ -9,6 +9,6 @@
   <transition  target="fail"/>
 </state>
 
-<final id="pass"><onentry><send event="pass"/></onentry></final>
-<final id="fail"><onentry><send event="fail"/></onentry></final>
+<final id="pass"></final>
+<final id="fail"></final>
 </scxml>

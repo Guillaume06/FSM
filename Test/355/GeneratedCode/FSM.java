@@ -10,16 +10,16 @@ public class FSM {
 
 	public State current;
 	public void submitEvent(String eve){
- 		System.out.println("		 ** Submitting event : " + eve + " **");
+		if(eve != "" && eve != null)System.out.println("		 ** Submitting event : " + eve + " **");
 		ArrayList<String> event = new ArrayList<String>();
 		ArrayList<String> eventRet = new ArrayList<String>();
 			try{
 				String nextState = current.trigger(eve);
-				while (!nextState.equals("")){
+				while (!(nextState == null) && !nextState.equals("")){
 					event.addAll(current.onexit());
 					current = states.get(nextState);
-					event.addAll(current.onentry());
 					nextState = "";
+					event.addAll(current.onentry());
 					while(event.size() != 0){
 						String tmp = current.trigger(event.get(0));
 						if(tmp != "" && tmp != null){
@@ -33,7 +33,7 @@ public class FSM {
 					}
 				}
 			}catch(Exception e){
-				System.out.println(e);
+				System.out.println("Exception : " + e);
 			}
 		}
 	public void register(String eve, Object c, Method method){
@@ -71,7 +71,6 @@ public class FSM {
 
 
 		name = "pass";
-		onentry.add(new Event("pass"));
 		states.put(name, new State(name, transitions, onentry, onexit));
 		name = ""; transitions = new ArrayList<Transition>();
 		onentry = new ArrayList<Event>();
@@ -79,7 +78,6 @@ public class FSM {
 
 
 		name = "fail";
-		onentry.add(new Event("fail"));
 		states.put(name, new State(name, transitions, onentry, onexit));
 		name = ""; transitions = new ArrayList<Transition>();
 		onentry = new ArrayList<Event>();
@@ -87,6 +85,7 @@ public class FSM {
 
 		current = states.get("s0");
 		current.onentry();
+		submitEvent("");
 }
 class Event{
 	String send = "";
@@ -107,7 +106,7 @@ class Transition{
 		this.target = target;
 	}
 	public String submit(String trig){
-		if (event == "") return target;
+		if (event == "" || event == null) return target;
 		if(trig.equals(event)){
 			return target;
 		}
@@ -143,10 +142,10 @@ class State {
 		return ret;
 	}
 	public String trigger(String input){
-		String next = null;
+		String next = "";
 		for(Transition t : transitions) {
 			next = t.submit(input);
-			if (next != null) break;
+			if (next != null || next != "") return next;
 		}
 		return next;
 	}

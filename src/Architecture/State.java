@@ -49,10 +49,10 @@ public class State {
 
         // Test for transitions trigger
         System.out.println("\tpublic String trigger(String input){\n" +
-                "\t\tString next = null;\n" +
+                "\t\tString next = \"\";\n" +
                 "\t\tfor(Transition t : transitions) {\n" +
                 "\t\t\tnext = t.submit(input);\n" +
-                "\t\t\tif (next != null) break;\n" +
+                "\t\t\tif (next != null || next != \"\") return next;\n" +
                 "\t\t}\n" +
                 "\t\treturn next;\n" +
                 "\t}\n}");
