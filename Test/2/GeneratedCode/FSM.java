@@ -9,9 +9,30 @@ public class FSM {
 	public static HashMap<String, Runnable> registered = new HashMap<String, Runnable>();
 
 	public State current;
+	public  ArrayList<String> event = new ArrayList<String>();
+	public void start(String state){
+		try{ 
+			String nextState = state;
+			do{ 
+				current = states.get(nextState);
+				nextState = "";
+				event.addAll(current.onentry());				while(event.size() != 0){
+					String tmp = current.trigger(event.get(0));
+					if(tmp != "" && tmp != null){
+						nextState = tmp;
+						event.addAll(current.onexit());
+						current = states.get(nextState);
+						event.addAll(current.onentry());
+						nextState = "";
+					}
+					event.remove(0);
+				}			}while (!(nextState == null) && !nextState.equals(""));
+		}catch(Exception e){
+			System.out.println("Exception : " + e);
+		}
+	}
 	public void submitEvent(String eve){
 		if(eve != "" && eve != null)System.out.println("		 ** Submitting event : " + eve + " **");
-		ArrayList<String> event = new ArrayList<String>();
 		ArrayList<String> eventRet = new ArrayList<String>();
 			try{
 				String nextState = current.trigger(eve);
@@ -50,23 +71,53 @@ public class FSM {
 	public void init() {
 		String name;
 		ArrayList<Transition> transitions = new ArrayList<Transition>();
-		ArrayList<Event> onentry = new ArrayList<Event>();
-		ArrayList<Event> onexit = new ArrayList<Event>();
+		ArrayList<Action> onentry = new ArrayList<Action>();
+		ArrayList<Action> onexit = new ArrayList<Action>();
 
 
 		name = "Start";
+		transitions.add(new Transition("external", "Next", "1"));
+		onentry.add(new Log("Entering Start"));
+		onentry.add(new Event("Next"));
+		onexit.add(new Log("Exiting Start"));
+		states.put(name, new State(name, transitions, onentry, onexit));
+		name = ""; transitions = new ArrayList<Transition>();
+		onentry = new ArrayList<Action>();
+		onexit = new ArrayList<Action>();
+
+
+		name = "1";
+		transitions.add(new Transition("external", "", "2"));
+		states.put(name, new State(name, transitions, onentry, onexit));
+		name = ""; transitions = new ArrayList<Transition>();
+		onentry = new ArrayList<Action>();
+		onexit = new ArrayList<Action>();
+
+
+		name = "2";
 		transitions.add(new Transition("external", "", "End"));
 		states.put(name, new State(name, transitions, onentry, onexit));
 		name = ""; transitions = new ArrayList<Transition>();
-		onentry = new ArrayList<Event>();
-		onexit = new ArrayList<Event>();
+		onentry = new ArrayList<Action>();
+		onexit = new ArrayList<Action>();
 
 
 		name = "End";
+		states.put(name, new State(name, transitions, onentry, onexit));
+		name = ""; transitions = new ArrayList<Transition>();
+		onentry = new ArrayList<Action>();
+		onexit = new ArrayList<Action>();
+
+		start("Start");
+		submitEvent("");
 }
-class Event{
+class Action{
+	public Event execute(){return null;} 
+}
+class Event extends Action {
 	String send = "";
 	public Event(String send){this.send = send;}
+	@Override
 	public Event execute(){ 
 		System.out.println("\tSending event "  + send);
 		if (registered.get(send) != null) registered.get(send).run();
@@ -93,9 +144,9 @@ class Transition{
 class State {
 	private String name;
 	private ArrayList<Transition> transitions;
-	private ArrayList<Event> onentry;
-	private ArrayList<Event> onexit;
-	public State(String name, ArrayList<Transition> transitions, ArrayList<Event> onentry, ArrayList<Event> onexit) {
+	private ArrayList<Action> onentry;
+	private ArrayList<Action> onexit;
+	public State(String name, ArrayList<Transition> transitions, ArrayList<Action> onentry, ArrayList<Action> onexit) {
 		this.name = name;
 		this.transitions = transitions;
 		this.onentry = onentry;
@@ -106,7 +157,7 @@ class State {
 		ArrayList<String> ret = new ArrayList<String>();
 		System.out.println("Entering state " + this.name);
 		Event event = null;
-		for(Event e : onentry){event = e.execute();if(event != null){ret.add(event.send);} event = null;}
+		for(Action e : onentry){event = e.execute();if(event != null){ret.add(event.send);} event = null;}
 		System.out.println("*End of Onentry*");
 		return ret;
 	}
@@ -114,7 +165,7 @@ class State {
 		ArrayList<String> ret = new ArrayList<String>();
 		System.out.println("*Onexit*");
 		 Event event = null;		System.out.println("Exiting state " + this.name);
-		for(Event e : onexit){event = e.execute();if(event != null){ret.add(event.send);} event = null;}
+		for(Action e : onexit){event = e.execute();if(event != null){ret.add(event.send);} event = null;}
 		System.out.println("*End of Onexit*");
 		return ret;
 	}
@@ -125,6 +176,14 @@ class State {
 			if (next != null || next != "") return next;
 		}
 		return next;
+	}
+}
+class Log extends Action {
+	String log = "";
+	public Log(String log){this.log = log;}
+	@Override
+	public Event execute(){ 
+		System.out.println("Log : " + log); return null;
 	}
 }
 }
