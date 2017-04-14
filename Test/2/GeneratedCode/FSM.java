@@ -54,44 +54,15 @@ public class FSM {
 		ArrayList<Event> onexit = new ArrayList<Event>();
 
 
-		name = "s0";
-		onentry.add(new Event("event1"));
-		onentry.add(new Event("event2"));
-		transitions.add(new Transition("external", "event1", "s1"));
-		transitions.add(new Transition("external", "*", "fail"));
+		name = "Start";
+		transitions.add(new Transition("external", "", "End"));
 		states.put(name, new State(name, transitions, onentry, onexit));
 		name = ""; transitions = new ArrayList<Transition>();
 		onentry = new ArrayList<Event>();
 		onexit = new ArrayList<Event>();
 
 
-		name = "s1";
-		transitions.add(new Transition("", "event2", "pass"));
-		transitions.add(new Transition("", "*", "fail"));
-		states.put(name, new State(name, transitions, onentry, onexit));
-		name = ""; transitions = new ArrayList<Transition>();
-		onentry = new ArrayList<Event>();
-		onexit = new ArrayList<Event>();
-
-
-		name = "pass";
-		onentry.add(new Event("pass"));
-		states.put(name, new State(name, transitions, onentry, onexit));
-		name = ""; transitions = new ArrayList<Transition>();
-		onentry = new ArrayList<Event>();
-		onexit = new ArrayList<Event>();
-
-
-		name = "fail";
-		onentry.add(new Event("fail"));
-		states.put(name, new State(name, transitions, onentry, onexit));
-		name = ""; transitions = new ArrayList<Transition>();
-		onentry = new ArrayList<Event>();
-		onexit = new ArrayList<Event>();
-
-		current = states.get("s0");
-		current.onentry();
-		submitEvent("");
+		name = "End";
 }
 class Event{
 	String send = "";
