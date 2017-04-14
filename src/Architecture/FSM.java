@@ -124,6 +124,7 @@ public class FSM {
                                 break;
                             case "onexit":
                                 for(int h = 0; h < elem.getChildren().size(); h++ ) {
+                                    switch ()
                                     System.out.println("\t\tonexit.add(new Event(" + "\"" + elem.getChildren().get(h).getAttribute("event").getValue() + "\"));");
                                 }
                                 break;
@@ -143,37 +144,6 @@ public class FSM {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        /*
-        System.out.println("\t\tArrayList<String> event = new ArrayList<String>();\n" +
-                "\t\tArrayList<String> eventRet = new ArrayList<String>();\n" +
-                "\t\twhile(true){\n" +
-                "\t\t\tBufferedReader br = new BufferedReader(new InputStreamReader(System.in));\n" +
-                "\t\t\ttry{\n" +
-                "\t\t\t\tString s = br.readLine();\n" +
-                "\t\t\t\tString nextState = current.trigger(s);\n" +
-                "\t\t\t\twhile (!nextState.equals(\"\")){\n" +
-                "\t\t\t\t\tevent.addAll(current.onexit());\n" +
-                "\t\t\t\t\tcurrent = states.get(nextState);\n" +
-                "\t\t\t\t\tevent.addAll(current.onentry());\n" +
-                "\t\t\t\t\tnextState = \"\";\n" +
-                "\t\t\t\t\twhile(event.size() != 0){\n" +
-                "\t\t\t\t\t\tString tmp = current.trigger(event.get(0));\n" +
-                "\t\t\t\t\t\tif(tmp != \"\" && tmp != null){\n" +
-                "\t\t\t\t\t\t\tnextState = tmp;\n" +
-                "\t\t\t\t\t\t\tevent.addAll(current.onexit());\n" +
-                "\t\t\t\t\t\t\tcurrent = states.get(nextState);\n" +
-                "\t\t\t\t\t\t\tevent.addAll(current.onentry());\n" +
-                "\t\t\t\t\t\t\tnextState = \"\";\n" +
-                "\t\t\t\t\t\t}\n" +
-                "\t\t\t\t\t\tevent.remove(0);\n" +
-                "\t\t\t\t\t}\n" +
-                "\t\t\t\t}\n" +
-                "\t\t\t}catch(Exception e){\n" +
-                "\t\t\t\tSystem.out.println(e);\n" +
-                "\t\t\t}\n" +
-                "\t\t}");
-        System.out.println("\t}\n}");
-        */
         System.out.println("}");
 
         // Object print

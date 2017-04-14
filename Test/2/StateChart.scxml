@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" binding="early" xmlns:qt="http://www.qt.io/2015/02/scxml-ext" name="StateChart" qt:editorversion="4.2.1">
+    <state id="Start">
+        <qt:editorinfo scenegeometry="284.11;-8.44;224.11;-58.44;213;270" geometry="284.11;-8.44;-60;-50;213;270"/>
+        <transition type="external" target="End"/>
+    </state>
+    <state id="End">
+        <qt:editorinfo scenegeometry="237.69;364.27;177.69;314.27;120;100" geometry="237.69;364.27;-60;-50;120;100"/>
+        <onentry>
+            <log label="Entering end"/>
+        </onentry>
+    </state>
+</scxml>
