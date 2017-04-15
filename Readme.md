@@ -46,3 +46,10 @@ Chaque dossier comprends :
 Deux solutions sont possibles :
 * Utiliser le dossier *perso* prévu à cet effet dans le dossier *test*, il suffit juste de mettre son scxml dans *StateChart.xml*, ainsi que le code métier dans *Main.java* situé dans *GeneratedCode*
 * Faire son popre dossier au même niveau que les autres dossiers de tests, le plus simple est de copier-coller un dossier de test existant et de changer le code (mêmes fichiers à modifier que pour la première méthode)
+
+
+## Domaine d'utilisation
+Pourquoi choisir de faire du java vers le java?
+Je fais régulièrement du JDR, et j'ai déjà fait de petits programmes en Java pour m'assister lorsque je mène des parties (statistiques initiales des personnages en fonction de leurs classes et races, ...)
+Les FSM sont intéréssantes pour simules les différentes évolutions possibles d'un scénario, en injectant dedans les décisions faites par les joueurs.
+Mes autres programmes étant aussi en java, faire celui-ci en java me permet de l'intégrer plus facilement aux autres, de plus le java possédant une bonne portabilité, je peux avoir mes applications sur moi facilement, même si je suis sur une machine différente.
