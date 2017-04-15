@@ -47,6 +47,11 @@ Deux solutions sont possibles :
 * Utiliser le dossier *perso* prévu à cet effet dans le dossier *test*, il suffit juste de mettre son scxml dans *StateChart.xml*, ainsi que le code métier dans *Main.java* situé dans *GeneratedCode*
 * Faire son popre dossier au même niveau que les autres dossiers de tests, le plus simple est de copier-coller un dossier de test existant et de changer le code (mêmes fichiers à modifier que pour la première méthode)
 
+## Eléments non gérés (liste non exhaustive)
+* Transitions internes
+* Etats hiérarchiques
+* Etats parallèles
+* Raise
 
 ## Domaine d'utilisation
 Pourquoi choisir de faire du java vers le java?
