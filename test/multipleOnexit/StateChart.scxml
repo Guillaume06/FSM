@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" binding="early" xmlns:qt="http://www.qt.io/2015/02/scxml-ext" name="StateChart" qt:editorversion="4.2.1">
+    <state id="Start">
+        <qt:editorinfo geometry="392.40;-33.76;-60;-50;120;100" scenegeometry="392.40;-33.76;332.40;-83.76;120;100"/>
+        <transition type="external" target="Fail1"/>
+        <onexit>
+            <send event="Next"/>
+            <send event="Next"/>
+        </onexit>
+    </state>
+    <state id="Fail1">
+        <qt:editorinfo geometry="347.40;101.27;-60;-50;120;100" scenegeometry="347.40;101.27;287.40;51.27;120;100"/>
+        <transition type="external" event="Next" target="Fail2"/>
+    </state>
+    <state id="Pass">
+        <qt:editorinfo geometry="378.34;448.66;-60;-50;120;100" scenegeometry="378.34;448.66;318.34;398.66;120;100"/>
+    </state>
+    <state id="Fail2">
+        <qt:editorinfo geometry="360.06;240.50;-60;-50;120;100" scenegeometry="360.06;240.50;300.06;190.50;120;100"/>
+        <transition type="external" event="Next" target="Pass"/>
+    </state>
+</scxml>

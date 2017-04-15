@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" binding="early" xmlns:qt="http://www.qt.io/2015/02/scxml-ext" name="StateChart" qt:editorversion="4.2.1" initial="Pass">
+    <qt:editorinfo initialGeometry="62.51;19.68;-20;-20;40;40"/>
+    <state id="Fail">
+        <qt:editorinfo scenegeometry="254.65;125.98;194.65;75.98;120;100" geometry="254.65;125.98;-60;-50;120;100"/>
+    </state>
+    <state id="Pass">
+        <qt:editorinfo scenegeometry="450.28;114.59;390.28;64.59;120;100" geometry="450.28;114.59;-60;-50;120;100"/>
+    </state>
+</scxml>

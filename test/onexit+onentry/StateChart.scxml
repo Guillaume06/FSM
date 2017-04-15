@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" binding="early" xmlns:qt="http://www.qt.io/2015/02/scxml-ext" name="StateChart" qt:editorversion="4.2.1">
+    <state id="Start">
+        <qt:editorinfo scenegeometry="195.62;121.35;135.62;71.35;120;100" geometry="195.62;121.35;-60;-50;120;100"/>
+        <transition type="external" event="Next" target="Fail1">
+            <qt:editorinfo endTargetFactors="25.32;52"/>
+        </transition>
+        <onentry>
+            <send event="Next"/>
+            <send event="Next1"/>
+        </onentry>
+        <onexit>
+            <send event="Next2"/>
+            <send event="Next3"/>
+        </onexit>
+    </state>
+    <state id="Fail1">
+        <qt:editorinfo scenegeometry="340.30;237.29;280.30;187.29;120;100" geometry="340.30;237.29;-60;-50;120;100"/>
+        <transition type="external" event="Next1" target="Fail2"/>
+    </state>
+    <state id="Fail3">
+        <qt:editorinfo scenegeometry="372.72;550.98;312.72;500.98;120;100" geometry="372.72;550.98;-60;-50;120;100"/>
+        <transition type="external" event="Next3" target="Pass"/>
+    </state>
+    <state id="Fail2">
+        <qt:editorinfo scenegeometry="217.52;363.37;157.52;313.37;120;100" geometry="217.52;363.37;-60;-50;120;100"/>
+        <transition type="external" event="Next2" target="Fail3">
+            <qt:editorinfo endTargetFactors="29.57;50"/>
+        </transition>
+    </state>
+    <state id="Pass">
+        <qt:editorinfo scenegeometry="557.73;399.57;497.73;349.57;120;100" geometry="557.73;399.57;-60;-50;120;100"/>
+    </state>
+</scxml>

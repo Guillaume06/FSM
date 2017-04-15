@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" binding="early" xmlns:qt="http://www.qt.io/2015/02/scxml-ext" name="StateChart" qt:editorversion="4.2.1">
+    <state id="Pass">
+        <qt:editorinfo geometry="367.09;-73.14;-60;-50;120;100" scenegeometry="367.09;-73.14;307.09;-123.14;120;100"/>
+        <onexit/>
+        <onentry>
+            <log label="Entering state pass"/>
+        </onentry>
+    </state>
+</scxml>

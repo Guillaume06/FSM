@@ -7,16 +7,16 @@ package Architecture;
 public class Event {
 
     public void print(){
-        System.out.println("class Event extends Action {\n" +
-                "\tString send = \"\";\n" +
-                "\tpublic Event(String send){this.send = send;}\n" +
-                "\t@Override\n" +
-                "\tpublic Event execute(){ \n" +
-                "\t\tSystem.out.println(\"\\tSending event \"  + send);\n" +
-                "\t\tif (registered.get(send) != null) registered.get(send).run();\n" +
-                "\t\treturn this;\n" +
-                "\t}\n" +
-                "}");
+        System.out.println("\tclass Event extends Action {\n" +
+                "\t\tString send = \"\";\n" +
+                "\t\tpublic Event(String send){this.send = send;}\n" +
+                "\t\t@Override\n" +
+                "\t\tpublic Event execute(){ \n" +
+                "\t\t\tSystem.out.println(\"\\tSending event \"  + send);\n" +
+                "\t\t\tif (registered.get(send) != null) registered.get(send).run();\n" +
+                "\t\t\treturn this;\n" +
+                "\t\t}\n" +
+                "\t}");
 
     }
 

@@ -75,42 +75,20 @@ public class FSM {
 		ArrayList<Action> onexit = new ArrayList<Action>();
 
 
-		name = "s0";
-		onentry.add(new Event("event1"));
-		onentry.add(new Event("event2"));
-		transitions.add(new Transition("external", "event1", "s1"));
-		transitions.add(new Transition("external", "*", "fail"));
+		name = "Fail";
 		states.put(name, new State(name, transitions, onentry, onexit));
 		name = ""; transitions = new ArrayList<Transition>();
 		onentry = new ArrayList<Action>();
 		onexit = new ArrayList<Action>();
 
 
-		name = "s1";
-		transitions.add(new Transition("", "event2", "pass"));
-		transitions.add(new Transition("", "*", "fail"));
+		name = "Pass";
 		states.put(name, new State(name, transitions, onentry, onexit));
 		name = ""; transitions = new ArrayList<Transition>();
 		onentry = new ArrayList<Action>();
 		onexit = new ArrayList<Action>();
 
-
-		name = "pass";
-		onentry.add(new Event("pass"));
-		states.put(name, new State(name, transitions, onentry, onexit));
-		name = ""; transitions = new ArrayList<Transition>();
-		onentry = new ArrayList<Action>();
-		onexit = new ArrayList<Action>();
-
-
-		name = "fail";
-		onentry.add(new Event("fail"));
-		states.put(name, new State(name, transitions, onentry, onexit));
-		name = ""; transitions = new ArrayList<Transition>();
-		onentry = new ArrayList<Action>();
-		onexit = new ArrayList<Action>();
-
-		start("s0");
+		start("Pass");
 		submitEvent("");
 }
 class Action{

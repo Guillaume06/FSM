@@ -29,12 +29,12 @@ public class FSM {
 
         System.out.println("public class FSM {\n" +
                 "\tpublic static HashMap<String, State> states = new HashMap<String, State>();\n" +
-                "\tpublic static HashMap<String, Runnable> registered = new HashMap<String, Runnable>();\n");
+                "\tpublic static HashMap<String, Runnable> registered = new HashMap<String, Runnable>();");
 
         org.jdom2.Document jdomDoc;
 
         System.out.println("\tpublic State current;");
-        System.out.println("\tpublic  ArrayList<String> event = new ArrayList<String>();");
+        System.out.println("\tpublic ArrayList<String> event = new ArrayList<String>();");
 
 
         try {
@@ -46,7 +46,7 @@ public class FSM {
                     "\t\t\tdo{ \n" +
                     "\t\t\t\tcurrent = states.get(nextState);\n" +
                     "\t\t\t\tnextState = \"\";\n" +
-                    "\t\t\t\tevent.addAll(current.onentry());" +
+                    "\t\t\t\tevent.addAll(current.onentry());\n" +
                     "\t\t\t\twhile(event.size() != 0){\n" +
                     "\t\t\t\t\tString tmp = current.trigger(event.get(0));\n" +
                     "\t\t\t\t\tif(tmp != \"\" && tmp != null){\n" +
@@ -57,7 +57,7 @@ public class FSM {
                     "\t\t\t\t\t\tnextState = \"\";\n" +
                     "\t\t\t\t\t}\n" +
                     "\t\t\t\t\tevent.remove(0);\n" +
-                    "\t\t\t\t}" +
+                    "\t\t\t\t}\n" +
                     "\t\t\t}while (!(nextState == null) && !nextState.equals(\"\"));\n" +
                     "\t\t}catch(Exception e){\n" +
                     "\t\t\tSystem.out.println(\"Exception : \" + e);\n" +
@@ -65,42 +65,49 @@ public class FSM {
                     "\t}");
 
             System.out.println("\tpublic void submitEvent(String eve){\n" +
-                    "\t\tif(eve != \"\" && eve != null)System.out.println(\"\t\t ** Submitting event : \" + eve + \" **\");");
-            System.out.println("\t\tArrayList<String> eventRet = new ArrayList<String>();\n" +
-                    "\t\t\ttry{\n" +
-                    "\t\t\t\tString nextState = current.trigger(eve);\n" +
-                    "\t\t\t\twhile (!(nextState == null) && !nextState.equals(\"\")){\n" +
+                    "\t\tif(eve != \"\" && eve != null)System.out.println(\"** Submitting event : \" + eve + \" **\");");
+            System.out.println("\t\ttry{\n" +
+                    "\t\t\tString nextState = current.trigger(eve);\n" +
+                    "\t\t\twhile (!(nextState == null) && !nextState.equals(\"\")){\n" +
+                    "\t\t\t\tevent.addAll(current.onexit());\n" +
+                    "\t\t\t\tcurrent = states.get(nextState);\n" +
+                    "\t\t\t\tnextState = \"\";\n" +
+                    "\t\t\t\tevent.addAll(current.onentry());\n" +
+                    "\t\t\t\tString tmp = current.trigger(\"\");\n" +
+                    "\t\t\t\tif(tmp != \"\" && tmp != null){\n" +
+                    "\t\t\t\t\tnextState = tmp;\n" +
                     "\t\t\t\t\tevent.addAll(current.onexit());\n" +
                     "\t\t\t\t\tcurrent = states.get(nextState);\n" +
-                    "\t\t\t\t\tnextState = \"\";\n" +
                     "\t\t\t\t\tevent.addAll(current.onentry());\n" +
-                    "\t\t\t\t\twhile(event.size() != 0){\n" +
-                    "\t\t\t\t\t\tString tmp = current.trigger(event.get(0));\n" +
-                    "\t\t\t\t\t\tif(tmp != \"\" && tmp != null){\n" +
-                    "\t\t\t\t\t\t\tnextState = tmp;\n" +
-                    "\t\t\t\t\t\t\tevent.addAll(current.onexit());\n" +
-                    "\t\t\t\t\t\t\tcurrent = states.get(nextState);\n" +
-                    "\t\t\t\t\t\t\tevent.addAll(current.onentry());\n" +
-                    "\t\t\t\t\t\t\tnextState = \"\";\n" +
-                    "\t\t\t\t\t\t}\n" +
-                    "\t\t\t\t\t\tevent.remove(0);\n" +
-                    "\t\t\t\t\t}\n" +
+                    "\t\t\t\t\tnextState = \"\";\n" +
                     "\t\t\t\t}\n" +
-                    "\t\t\t}catch(Exception e){\n" +
-                    "\t\t\t\tSystem.out.println(\"Exception : \" + e);\n" +
+                    "\t\t\t\twhile(event.size() != 0){\n" +
+                    "\t\t\t\t\ttmp = current.trigger(event.get(0));\n" +
+                    "\t\t\t\t\tif(tmp != \"\" && tmp != null){\n" +
+                    "\t\t\t\t\t\tnextState = tmp;\n" +
+                    "\t\t\t\t\t\tevent.addAll(current.onexit());\n" +
+                    "\t\t\t\t\t\tcurrent = states.get(nextState);\n" +
+                    "\t\t\t\t\t\tevent.addAll(current.onentry());\n" +
+                    "\t\t\t\t\t\tnextState = \"\";\n" +
+                    "\t\t\t\t\t}\n" +
+                    "\t\t\t\t\tevent.remove(0);\n" +
+                    "\t\t\t\t}\n" +
                     "\t\t\t}\n" +
-                    "\t\t}");
+                    "\t\t}catch(Exception e){\n" +
+                    "\t\t\tSystem.out.println(\"Exception : \" + e);\n" +
+                    "\t\t}\n" +
+                    "\t}");
 
             System.out.print("\tpublic void register(String eve, Object c, Method method){\n" +
-                    "\t\t\tregistered.put(eve,  ()-> {\n" +
-                    "\t\t\t\ttry {\n" +
-                    "\t\t\t\t\tmethod.invoke(c);\n" +
-                    "\t\t\t\t} catch (IllegalAccessException e) {\n" +
-                    "\t\t\t\t\te.printStackTrace();\n" +
-                    "\t\t\t\t} catch (InvocationTargetException e) {\n" +
-                    "\t\t\t\t\te.printStackTrace();\n" +
-                    "\t\t\t\t}\n" +
-                    "\t\t\t});" +
+                    "\t\tregistered.put(eve,  ()-> {\n" +
+                    "\t\t\ttry {\n" +
+                    "\t\t\t\tmethod.invoke(c);\n" +
+                    "\t\t\t} catch (IllegalAccessException e) {\n" +
+                    "\t\t\t\te.printStackTrace();\n" +
+                    "\t\t\t} catch (InvocationTargetException e) {\n" +
+                    "\t\t\t\te.printStackTrace();\n" +
+                    "\t\t\t}\n" +
+                    "\t\t});\n" +
                     "\t}\n");
 
             // Constructor()
@@ -112,6 +119,9 @@ public class FSM {
             jdomDoc = useDOMParser(fileName);
             Element root = jdomDoc.getRootElement();
             String initState="";
+            if (root.getAttribute("initial") != null){
+                initState = root.getAttribute("initial").getValue();
+            }
             if (root.getAttribute("initial") != null){
                 initState = root.getAttribute("initial").getValue();
             }
@@ -177,7 +187,7 @@ public class FSM {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        System.out.println("}");
+        System.out.println("\t}");
 
         // Object print
         Action a = new Action();
