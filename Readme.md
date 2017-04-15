@@ -54,4 +54,4 @@ Je fais régulièrement du JDR, et j'ai déjà fait de petits programmes en Java
 
 Les FSM sont intéréssantes pour simuler les différentes évolutions possibles d'un scénario, en injectant dedans les décisions faites par les joueurs.
 
-Mes autres programmes étant aussi en java, faire celui-ci en java me permet de l'intégrer plus facilement aux autres, de plus le java possédant une bonne portabilité, je peux avoir mes applications sur moi facilement, même si je suis sur une machine différente.
+Mes autres programmes étant aussi en java, faire celui-ci en java me permet de l'intégrer plus facilement aux autres, de plus java ayant une bonne portabilité, je peux avoir mes applications sur moi facilement, même si je suis sur une machine différente.
